@@ -206,22 +206,45 @@ img {
   width: calc(46.09 * var(--u));
 }
 
+/* «از صفحه عکس بگیر»: saves the card's picture to the phone (staff.js) */
 .staff-label {
   position: absolute;
   top: calc(538.5 * var(--u));
   left: 50%;
   translate: -50% 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6 * var(--u));
   width: calc(179 * var(--u));
   height: calc(33 * var(--u));
   margin: 0;
+  padding: 0;
+  border: 0;
   border-radius: 999px;
   background: var(--green);
   color: #fff;
+  font-family: inherit;
   font-size: calc(var(--label-size) * var(--u));
   font-weight: 700;
   line-height: 1;
+  cursor: pointer;
+  transition: scale 0.12s ease, opacity 0.12s ease;
+}
+/* the camera (camera.svg), in the button's white */
+.staff-label__icon {
+  flex-shrink: 0;
+  width: calc(19 * var(--u));
+  height: calc(19 * var(--u));
+  background: currentColor;
+  -webkit-mask: url("camera.svg") center / contain no-repeat;
+  mask: url("camera.svg") center / contain no-repeat;
+}
+.staff-label:active {
+  scale: 0.96;
+}
+.staff-label[aria-busy="true"] {
+  opacity: 0.7;
 }
 
 /* the office's number and the site, in their bracket */
@@ -239,6 +262,10 @@ img {
   outline: calc(2 * var(--u)) solid var(--orange);
   outline-offset: calc(3 * var(--u));
   border-radius: calc(6 * var(--u));
+}
+.staff-label:focus-visible {
+  outline: calc(2 * var(--u)) solid var(--orange);
+  outline-offset: calc(3 * var(--u));
 }
 
 /* the visible height on a phone, without the browser's bars (where supported) */
