@@ -1,0 +1,249 @@
+/*
+ * The staff profile pages (/staff/First-Last.htm): one card per person, as in the design.
+ * Every size is a multiple of --u, one 421.5th of the page's width (the design is 421.5 by 750;
+ * its gaps a little tighter; the box runs from the top of the logo to the bottom of the number, 656.4, near the top of the screen),
+ * so the card keeps its proportions on every phone; on a wider screen it stops growing at 460px.
+ */
+@font-face {
+  font-family: "Kalameh";
+  src: url("fonts/kalameh-light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kalameh";
+  src: url("fonts/kalameh-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kalameh";
+  src: url("fonts/kalameh-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kalameh";
+  src: url("fonts/kalameh-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kalameh";
+  src: url("fonts/kalameh-extrabold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kalameh";
+  src: url("fonts/kalameh-black.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
+:root {
+  /* as wide as the screen (460px at most), and never taller than what the browser shows: the
+     card shrinks a little on a short screen instead of scrolling (24px kept above, 16px below) */
+  --u: min(calc(min(100vw, 460px) / 421.5), calc((100vh - 40px) / 656.4));
+  --blue: #164194;
+  --orange: #f18815;
+  --line: #89a1c4;
+  --green: #059a00;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  background: #fff;
+}
+/* the card near the top of the screen: 24px above it, 16px kept free below (as --u counts) */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-block: 24px 16px;
+  color: var(--blue);
+  font-family: "Kalameh", Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  display: block;
+}
+
+.staff {
+  /* the text: sizes and the middle of each line, matched to the design (tuned against it). A page
+     whose name, title or email is longer gives it a smaller size (style="--name-size: …" on
+     .staff) so it stays on one line inside the card; its middle stays where it is. */
+  --name-y: 318.6;
+  --name-size: 43.2;
+  --role-y: 361.3;
+  --role-size: 22.1;
+  --mail-y: 402.95;
+  --mail-size: 17.4;
+  --mobile-y: 429.5;
+  --mobile-size: 29.5;
+  --label-size: 16.1;
+  position: relative;
+  width: calc(421.5 * var(--u));
+  height: calc(656.4 * var(--u));
+  flex-shrink: 0;
+}
+
+/* the card, its top line broken by the logo and its bottom line by the green label */
+.staff-card {
+  position: absolute;
+  top: calc(31 * var(--u));
+  left: calc(38.5 * var(--u));
+  width: calc(344.5 * var(--u));
+  height: calc(525 * var(--u));
+  border: calc(2 * var(--u)) solid var(--line);
+  border-radius: calc(25 * var(--u));
+}
+
+/* placed by the logo's drawn part (its frame has room on the right); the white behind it breaks the line */
+.staff-logo {
+  position: absolute;
+  top: calc(-6.06 * var(--u));
+  left: calc((103.03 - 8) * var(--u));
+  padding-inline: calc(8 * var(--u));
+  background: #fff;
+}
+.staff-logo img {
+  width: calc(223.59 * var(--u));
+  height: auto;
+}
+
+/* the photo in a blue ring, a white gap between them */
+.staff-photo {
+  position: absolute;
+  top: calc(92 * var(--u));
+  left: 50%;
+  translate: -50% 0;
+  width: calc(180.5 * var(--u));
+  height: calc(180.5 * var(--u));
+  padding: calc(3.5 * var(--u));
+  border: calc(2.5 * var(--u)) solid var(--blue);
+  border-radius: 50%;
+}
+.staff-photo span,
+.staff-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #eef2f8;
+  object-fit: cover;
+}
+
+.staff-text {
+  position: absolute;
+  inset-inline: 0;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  translate: 0 -50%;
+}
+.staff-name {
+  top: calc(var(--name-y) * var(--u));
+  font-size: calc(var(--name-size) * var(--u));
+  font-weight: 900;
+  line-height: 1;
+}
+.staff-role {
+  top: calc(var(--role-y) * var(--u));
+  font-size: calc(var(--role-size) * var(--u));
+  font-weight: 300;
+  line-height: 1;
+}
+.staff-mail {
+  top: calc(var(--mail-y) * var(--u));
+  font-size: calc(var(--mail-size) * var(--u));
+  font-weight: 400;
+  line-height: 1;
+}
+.staff-mobile {
+  top: calc(var(--mobile-y) * var(--u));
+  font-size: calc(var(--mobile-size) * var(--u));
+  font-weight: 800;
+  line-height: 1;
+}
+.staff-text a {
+  display: inline-block;
+}
+
+/* LinkedIn, WhatsApp and Telegram, left to right as in the design */
+.staff-social a {
+  position: absolute;
+  display: block;
+}
+.staff-social img {
+  width: 100%;
+  height: auto;
+}
+.staff-social .is-linkedin {
+  top: calc(462.19 * var(--u));
+  left: calc(105.17 * var(--u));
+  width: calc(58.48 * var(--u));
+}
+.staff-social .is-whatsapp {
+  top: calc(461.4 * var(--u));
+  left: calc(184.33 * var(--u));
+  width: calc(62.83 * var(--u));
+}
+.staff-social .is-telegram {
+  top: calc(471.94 * var(--u));
+  left: calc(266.91 * var(--u));
+  width: calc(46.09 * var(--u));
+}
+
+.staff-label {
+  position: absolute;
+  top: calc(538.5 * var(--u));
+  left: 50%;
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: calc(179 * var(--u));
+  height: calc(33 * var(--u));
+  margin: 0;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-size: calc(var(--label-size) * var(--u));
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* the office's number and the site, in their bracket */
+.staff-call {
+  position: absolute;
+  top: calc(572.72 * var(--u));
+  left: calc(63.53 * var(--u));
+}
+.staff-call img {
+  width: calc(294.27 * var(--u));
+  height: auto;
+}
+
+.staff a:focus-visible {
+  outline: calc(2 * var(--u)) solid var(--orange);
+  outline-offset: calc(3 * var(--u));
+  border-radius: calc(6 * var(--u));
+}
+
+/* the visible height on a phone, without the browser's bars (where supported) */
+@supports (height: 100dvh) {
+  :root {
+    --u: min(calc(min(100vw, 460px) / 421.5), calc((100dvh - 40px) / 656.4));
+  }
+}
